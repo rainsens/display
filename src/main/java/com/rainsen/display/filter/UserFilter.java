@@ -3,6 +3,7 @@ package com.rainsen.display.filter;
 import com.rainsen.display.model.entity.User;
 import com.rainsen.display.util.JWTUtil;
 import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
@@ -19,12 +20,16 @@ public class UserFilter implements Filter {
             ServletResponse servletResponse,
             FilterChain filterChain
     ) throws IOException, ServletException {
-        try {
-            User authUser = JWTUtil.auth(servletRequest, servletResponse);
-            userThreadLocal.set(authUser);
+        if (((HttpServletRequest) servletRequest).getMethod().equals("OPTIONS")) {
             filterChain.doFilter(servletRequest, servletResponse);
-        } finally {
-            userThreadLocal.remove();
+        } else {
+            try {
+                User authUser = JWTUtil.auth(servletRequest, servletResponse);
+                userThreadLocal.set(authUser);
+                filterChain.doFilter(servletRequest, servletResponse);
+            } finally {
+                userThreadLocal.remove();
+            }
         }
     }
 

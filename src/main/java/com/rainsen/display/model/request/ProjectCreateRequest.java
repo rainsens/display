@@ -11,6 +11,9 @@ public class ProjectCreateRequest {
     @Size(min = 3, max = 128)
     private String title;
     @NotBlank
+    @Size(min = 3, max = 256)
+    private String description;
+    @NotBlank
     @Size(max = 256)
     private String cover;
     @NotBlank(message = "Project detail is required")
@@ -33,6 +36,14 @@ public class ProjectCreateRequest {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {

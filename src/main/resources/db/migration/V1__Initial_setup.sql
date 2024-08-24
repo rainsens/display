@@ -19,7 +19,8 @@ create table project (
     user_id bigint default 0,
     initiator varchar(128) not null,
     title varchar(128) not null,
-    cover varchar(256) not null,
+    description varchar(256) not null,
+    cover varchar(256),
     detail longtext not null,
     team tinyint default 1 comment '1:true,0:false',
     progress int default 0,
@@ -51,6 +52,15 @@ create table image (
        path varchar(256) not null,
        created_at timestamp default current_timestamp,
        updated_at timestamp default current_timestamp
+);
+
+create table timeline (
+    id bigint auto_increment primary key,
+    project_id bigint default 0,
+    time timestamp default current_timestamp,
+    event varchar(128) not null,
+    created_at timestamp default current_timestamp,
+    updated_at timestamp default current_timestamp
 );
 
 create table link (
@@ -90,6 +100,7 @@ create table permit (
 
 create table survey (
     id bigint auto_increment primary key,
+    user_id bigint default 0 comment 'who created the questionnaire',
     title varchar(256) not null,
     open tinyint default 1 comment '1:true,0:false',
     created_at timestamp default current_timestamp,
@@ -113,11 +124,3 @@ create table answer (
     created_at timestamp default current_timestamp,
     updated_at timestamp default current_timestamp
 );
-
-insert into `user` (id, username, email, password, admin) value (1, 'Admin', 'admin@admin.com', '4ihrQTZIKgAs2MvNr4cufg==', 1);
-insert into `user` (id, username, email, password, admin) value (2, 'Rainsen', 'rainsen@admin.com', '4ihrQTZIKgAs2MvNr4cufg==', 0);
-insert into `user` (id, username, email, password, admin) value (3, 'Tom', 'tom@admin.com', '4ihrQTZIKgAs2MvNr4cufg==', 0);
-
-insert into `project` (id, user_id, initiator, title, cover, detail, team) value (1, 1, 'Ivy', 'Chief', 'Project 001', 'Project 001 detail', 1);
-insert into `project` (id, user_id, initiator, title, cover, detail, team) value (2, 2, 'Carol', 'Chief', 'Project 002', 'Project 002 detail', 0);
-insert into `project` (id, user_id, initiator, title, cover, detail, team) value (3, 3, 'Judy', 'Chief', 'Project 003', 'Project 003 detail', 0);

@@ -1,16 +1,20 @@
 package com.rainsen.display.model.resource;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class ProjectResource implements Serializable {
 
     private Long id;
     private Long userId;
+    private String initiator;
     private String title;
+    private String description;
     private String cover;
     private String detail;
     private boolean team;
     private Integer progress;
+    private Date createdAt;
     private UserResource user;
 
     public Long getId() {
@@ -29,12 +33,28 @@ public class ProjectResource implements Serializable {
         this.userId = userId;
     }
 
+    public String getInitiator() {
+        return initiator;
+    }
+
+    public void setInitiator(String initiator) {
+        this.initiator = initiator;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {
@@ -67,6 +87,14 @@ public class ProjectResource implements Serializable {
 
     public void setProgress(Integer progress) {
         this.progress = progress;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public UserResource getUser() {

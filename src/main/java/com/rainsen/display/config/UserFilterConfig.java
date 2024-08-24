@@ -24,6 +24,7 @@ public class UserFilterConfig {
         filterRegistrationBean.addUrlPatterns("/user/update/*");
         filterRegistrationBean.addUrlPatterns("/user/logout/*");
 
+        filterRegistrationBean.addUrlPatterns("/project/my/index/*");
         filterRegistrationBean.addUrlPatterns("/project/create/*");
         filterRegistrationBean.addUrlPatterns("/project/update/*");
         filterRegistrationBean.addUrlPatterns("/project/delete/*");

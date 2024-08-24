@@ -12,6 +12,7 @@ public class Project extends BaseEntity {
     private Long id;
     private String initiator;
     private String title;
+    private String description;
     private String cover;
     private String detail;
     private boolean team;
@@ -52,6 +53,14 @@ public class Project extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {

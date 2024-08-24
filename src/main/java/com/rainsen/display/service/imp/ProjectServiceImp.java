@@ -64,11 +64,15 @@ public class ProjectServiceImp implements ProjectService {
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(page-1, size, sort);
         Page<Project> projects = repository.findAll(pageable);
-        return projects.map(project -> {
-            ProjectResource projectResource = project.toResource();
-            projectResource.setUser(project.getUser().toResource());
-            return projectResource;
-        });
+        return projects.map(Project::toResource);
+    }
+
+    @Override
+    public Page<ProjectResource> myIndex(Integer page, Integer size) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page-1, size, sort);
+        Page<Project> projects = repository.findAllByUser_Id(UserFilter.user().getId(), pageable);
+        return projects.map(Project::toResource);
     }
 
     @Override

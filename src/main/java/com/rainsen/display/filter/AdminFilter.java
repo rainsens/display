@@ -5,6 +5,7 @@ import com.rainsen.display.exception.DisExceptionEnum;
 import com.rainsen.display.model.entity.User;
 import com.rainsen.display.util.JWTUtil;
 import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.IOException;
 
@@ -20,22 +21,25 @@ public class AdminFilter implements Filter {
             FilterChain filterChain
     ) throws IOException, ServletException {
 
-        try {
-            User authUser = JWTUtil.auth(servletRequest, servletResponse);
+        if (((HttpServletRequest) servletRequest).getMethod().equals("OPTIONS")) {
+            filterChain.doFilter(servletRequest, servletResponse);
+        } else {
+            try {
+                User authUser = JWTUtil.auth(servletRequest, servletResponse);
 
-            if (authUser == null) {return;}
+                if (authUser == null) {return;}
 
-            UserFilter.userThreadLocal.set(authUser);
+                UserFilter.userThreadLocal.set(authUser);
 
-            if (authUser.isAdmin()) {
-                filterChain.doFilter(servletRequest, servletResponse);
-            } else {
-                ApiResponse.errorOut(servletResponse, DisExceptionEnum.UNAUTHORISED_ACCESS);
+                if (authUser.isAdmin()) {
+                    filterChain.doFilter(servletRequest, servletResponse);
+                } else {
+                    ApiResponse.errorOut(servletResponse, DisExceptionEnum.UNAUTHORISED_ACCESS);
+                }
+            } finally {
+                UserFilter.userThreadLocal.remove();
             }
-        } finally {
-            UserFilter.userThreadLocal.remove();
         }
-
     }
 
     @Override

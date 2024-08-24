@@ -13,6 +13,9 @@ public class ProjectUpdateRequest {
     @Size(min = 3, max = 128)
     private String title;
 
+    @Size(min = 3, max = 128)
+    private String description;
+
     @Size(max = 256)
     private String cover;
 
@@ -45,6 +48,14 @@ public class ProjectUpdateRequest {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCover() {

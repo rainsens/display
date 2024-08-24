@@ -28,6 +28,12 @@ public class ProjectController {
         Page<ProjectResource> projects = projectService.index(page, size);
         return ApiResponse.success(projects);
     }
+    @Operation(description = "List certain user's projects out.")
+    @GetMapping("/my/index")
+    public ApiResponse<Page<ProjectResource>> myIndex(@RequestParam Integer page, @RequestParam Integer size) {
+        Page<ProjectResource> projects = projectService.myIndex(page, size);
+        return ApiResponse.success(projects);
+    }
 
     @Operation(description = "Show a specified project.")
     @GetMapping("/show/{id}")

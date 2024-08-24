@@ -10,6 +10,8 @@ public interface ProjectService {
 
     Page<ProjectResource> index(Integer page, Integer size);
 
+    Page<ProjectResource> myIndex(Integer page, Integer size);
+
     ProjectResource show(Long id);
 
     void create(ProjectCreateRequest info);
